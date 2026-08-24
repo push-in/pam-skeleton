@@ -1,75 +1,53 @@
-# Pam application
+<!-- pam:product-page:start -->
+<div align="center">
+
+# PAM Application Skeleton
+
+**Start with production structure, not an empty directory.**
+
+The canonical API starter with typed DTOs, thin controllers, services, repositories, resources, migrations, tests, and integer-backed domain enums.
+
+[![Release](https://img.shields.io/github/v/release/push-in/pam-skeleton?style=flat-square&label=stable)](https://github.com/push-in/pam-skeleton/releases)
+![PHP](https://img.shields.io/badge/PHP-8.5-777BB4?style=flat-square&logo=php&logoColor=white)
+![License](https://img.shields.io/github/license/push-in/pam-skeleton?style=flat-square)
+
+**[Documentation](https://push-in.github.io/pam-docs/getting-started/first-app/) · [Why this exists](#why-this-exists) · [What you can build](#what-you-can-build) · [Quick start](#quick-start) · [Issues](https://github.com/push-in/pam-skeleton/issues)**
+
+</div>
+
+---
+
+## Why this exists
+
+The canonical API starter with typed DTOs, thin controllers, services, repositories, resources, migrations, tests, and integer-backed domain enums.
+
+| | |
+| --- | --- |
+| **Role** | Application starter |
+| **Execution path** | PAM HTTP · Eloquent · PHP 8.5 |
+| **This repository owns** | Generated project structure and first executable vertical slice |
+| **Boundary** | A starting point, not a framework dependency or runtime distribution |
+
+## What you can build
+
+- Starting a structured JSON API
+- Teaching the recommended PAM application architecture
+- Proving database, validation, resource, and test workflows end to end
+
+## Quick start
+
+```bash
+pam init my-app --template api
+cd my-app
+pam doctor --fix
+pam dev
+```
+
+The **[PAM documentation](https://push-in.github.io/pam-docs/getting-started/first-app/)** covers prerequisites, production setup, and the complete workflow. PAM projects keep normal manifests and lockfiles; product features stay in the package that owns them.
+<!-- pam:product-page:end -->
 
 > This branch targets PAM API 2.0. Use the published `1.x` skeleton until the
 > PAM API 2.0 prerelease is available on Packagist.
-
-## Start here
-
-This skeleton creates an application for the PAM Runtime; it does not include
-the runtime itself. Install PAM first, then create the project through PAM:
-
-```bash
-curl --proto '=https' --proto-redir '=https' --tlsv1.2 \
-    --connect-timeout 15 --max-time 60 --max-filesize 1048576 -fsSL \
-    https://github.com/push-in/pam/releases/latest/download/install.sh | sh
-
-pam doctor
-pam init my-app
-cd my-app
-pam composer install
-mkdir -p storage && touch storage/database.sqlite
-pam composer migrate
-pam composer dev
-```
-
-The API starts at `http://127.0.0.1:3000`.
-
-The starter intentionally demonstrates the structured PAM API path: a named
-controller method orchestrates a service and returns a JSON Resource. Closures
-remain available for small endpoints, but application rules should live in
-services and persistence should live in repositories.
-
-It also ships an executable Eloquent vertical slice:
-
-```bash
-curl -X POST http://127.0.0.1:3000/api/products \
-  -H 'content-type: application/json' \
-  -d '{"name":"Mechanical keyboard","priceInCents":34990}'
-curl http://127.0.0.1:3000/api/products
-```
-
-`ProductController` stays thin, `StoreProductRequest` validates and hydrates a
-typed DTO, `ProductService` owns the use case, `ProductRepository` isolates
-Eloquent persistence, and `ProductResource` owns the response contract. Product
-statuses are sequential integer-backed enum values (`1` active, `2` archived).
-Creation returns `201 Created`; resources may select any valid HTTP status while
-retaining PAM API's consistent `data` envelope.
-
-Run the in-memory application test inside Pam's Embed SAPI:
-
-```bash
-pam composer test
-```
-
-The generated application and this published skeleton share the same source
-files:
-
-```text
-index.php
-src/
-├── Domain/Products/
-├── Http/{Controllers,Requests,Resources}/
-├── Models/Product.php
-├── Providers/AppServiceProvider.php
-├── Repositories/
-└── Services/
-database/migrations/
-tests/{ApplicationTest.php,bootstrap.php}
-```
-
-`index.php` validates typed configuration before listening, installs secure
-response headers, and boots Eloquent from environment configuration. Migrations
-are explicit so concurrent production workers never race schema changes.
 
 ## License
 
